@@ -1,0 +1,33 @@
+﻿@model UpdateSupplierDTO
+
+@{
+    ViewData["Title"] = "Editar Proveedor";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Update" method="POST">
+
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-floating mb-3">
+        <input asp-for="Name" type="text" class="form-control" placeholder="Ingrese el nombre" />
+        <label for="floatingInput">Nombre</label>
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input asp-for="Phone" type="text" class="form-control" placeholder="Ingrese el teléfono" />
+        <label for="floatingInput">Teléfono</label>
+        <span asp-validation-for="Phone" class="text-danger"></span>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input asp-for="Email" type="email" class="form-control" placeholder="Ingrese el correo" />
+        <label for="floatingInput">Correo</label>
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+
+</form>

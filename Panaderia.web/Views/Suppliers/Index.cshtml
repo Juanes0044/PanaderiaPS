@@ -1,0 +1,38 @@
+﻿@model List<Supplier>
+
+@{
+    ViewData["Title"] = "Proveedores";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<a asp-action="Create" class="btn btn-primary mt-3 mb-3">Nuevo proveedor</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Teléfono</th>
+            <th>Correo</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (Supplier supplier in Model)
+        {
+            <tr>
+                <td>@supplier.Name</td>
+                <td>@supplier.Phone</td>
+                <td>@supplier.Emial</td>
+                <td>
+                    <a asp-action="GetOne" asp-route-id="@supplier.Id" class="btn btn-warning">Editar</a>
+
+                    <form asp-action="Delete" asp-route-id="@supplier.Id" method="post" style="display:inline">
+                        <button type="submit" class="btn btn-danger">Borrar</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
