@@ -1,92 +1,69 @@
-﻿using Panaderia.web.Data;
-using Panaderia.web.Data.Entities;
-using Panaderia.web.Services.Abstractions;
+﻿
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Panaderia.web.Core;
+using Panaderia.web.Core.Pagination;
+using Panaderia.web.Data;
+using Panaderia.web.Data.Entities;
 using Panaderia.web.DTOs;
+using Panaderia.web.Services.Abstractions;
+using Panaderia.Web.Services;
 
 namespace Panaderia.web.Services.Implementations
 {
-    public class ProductsService : IProductsService
+    public class ProductsService : CustomQueryableOperationService, IProductsService
     {
         private readonly DataContext _context;
+        private readonly IMapper _mapper;
 
-        public ProductsService(DataContext context)
+        public ProductsService(DataContext context, IMapper mapper) : base(context, mapper)
         {
             _context = context;
+            _mapper = mapper;
+        }
+        public async Task<Response<CreateProductDTO>> CreateAsync(CreateProductDTO dto)
+        {
+            return await CreateAsync<CreateProductDTO, Product>(dto);
         }
 
-        public async Task<Product> CreateAsync(CreateProductDTO dto)
+        public Task<Response<object>> DeleteAsync(int id)
         {
-            Product product = new Product
-            {
-                Name = dto.Name,
-                Price = dto.Price,
-                stock = dto.Stock,
-            };
-
-            await _context.Products.AddAsync(product);
-            await _context.SaveChangesAsync();
-
-            return product;
+            throw new NotImplementedException();
         }
 
-        public async Task DeleteAsync(int id)
+        public Task<Response<object>> DeleteAsync(Guid id)
         {
-            Product? product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
-
-            if (product is null)
-            {
-                throw new Exception("No existe producto con el id indicado");
-            }
-
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
+            throw new NotImplementedException();
         }
 
-        public async Task<List<Product>> GetListAsync()
+        public Task<Response<List<ProductDTO>>> GetListAsync()
         {
-            List<Product> list = await _context.Products.ToListAsync();
-
-            return list;
+            throw new NotImplementedException();
         }
 
-        public async Task<UpdateProductDTO> GetOneAsync(int id)
+        public Task<Response<ProductDTO>> GetOneAsync(int id)
         {
-            Product? product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
-
-            if (product is null)
-            {
-                throw new Exception("No existe producto con el id indicado");
-            }
-
-            UpdateProductDTO dto = new UpdateProductDTO
-            {
-                Id = id,
-                Name = product.Name,
-                Price = product.Price,
-                Stock = product.stock,
-            };
-
-            return dto;
+            throw new NotImplementedException();
         }
 
-        public async Task<Product> UpdateAsync(UpdateProductDTO dto)
+        public Task<Response<ProductDTO>> GetOneAsync(Guid id)
         {
-            Product? product = await _context.Products.FirstOrDefaultAsync(p => p.Id == dto.Id);
+            throw new NotImplementedException();
+        }
 
-            if (product is null)
-            {
-                throw new Exception("No existe producto con el id indicado");
-            }
+        public Task<Response<PaginationResponse<ProductDTO>>> GetPaginationListAsync(PaginationRequest request)
+        {
+            throw new NotImplementedException();
+        }
 
-            product.Name = dto.Name;
-            product.Price = dto.Price;
-            product.stock = dto.Stock;
+        public Task<Response<object>> ToggleAsync(ToggleProductStatusDTO dto)
+        {
+            throw new NotImplementedException();
+        }
 
-            _context.Products.Update(product);
-            await _context.SaveChangesAsync();
-
-            return product;
+        public Task<Response<ProductDTO>> UpdateAsync(UpdateProductDTO dto)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Panaderia.web;
 using Panaderia.web.Data;
 using Panaderia.web.Services.Abstractions;
 using Panaderia.web.Services.Implementations;
@@ -8,6 +9,8 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.AddCustomConfiguration();
 
 // Data Context
 builder.Services.AddDbContext<DataContext>(config =>

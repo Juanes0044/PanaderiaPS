@@ -6,7 +6,7 @@ namespace Panaderia.web.DTOs
     public class UpdateProductDTO
     {
         [Required(ErrorMessage = "El campo {0} es obligatorio.")]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
 
         [MaxLength(64, ErrorMessage = "El nombre del producto no puede tener más de 64 caracteres.")]
