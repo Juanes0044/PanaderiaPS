@@ -1,0 +1,225 @@
+﻿@{
+    string controller = ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
+}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Panadería</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600|Nunito:400,600,700|Poppins:400,500,600" rel="stylesheet" />
+
+    <link href="~/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+
+    <style>
+            :root {
+                --bs-primary: #4154f1;
+                --bs-primary-rgb: 65, 84, 241;
+                --sidebar-width: 260px;
+            }
+
+            body {
+                font-family: "Open Sans", sans-serif;
+                background-color: #f6f9ff;
+                color: #444444;
+            }
+
+            h1, h2, h3, h4, h5, h6 {
+                font-family: "Nunito", sans-serif;
+                color: #012970;
+            }
+
+            a {
+                color: #4154f1;
+                text-decoration: none;
+            }
+
+                a:hover {
+                    color: #717ff5;
+                }
+
+            .btn-primary {
+                background-color: #4154f1;
+                border-color: #4154f1;
+            }
+
+                .btn-primary:hover {
+                    background-color: #3647c7;
+                    border-color: #3647c7;
+                }
+
+            .text-primary {
+                color: #4154f1 !important;
+            }
+
+            /* Menú lateral */
+            .app-sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: var(--sidebar-width);
+                background-color: #fff;
+                box-shadow: 0 0 20px rgba(1, 41, 112, 0.1);
+                padding: 20px;
+                overflow-y: auto;
+                z-index: 100;
+            }
+
+                .app-sidebar .brand {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    text-align: center;
+                    gap: 6px;
+                    font-family: "Nunito", sans-serif;
+                    font-size: 26px;
+                    font-weight: 700;
+                    color: #012970;
+                    margin-bottom: 30px;
+                }
+
+                    .app-sidebar .brand img {
+                        max-width: 100%;
+                        max-height: 120px;
+                        object-fit: contain;
+                    }
+
+                .app-sidebar .nav-link {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    color: #012970;
+                    font-family: "Nunito", sans-serif;
+                    font-weight: 600;
+                    padding: 10px 15px;
+                    border-radius: 4px;
+                    margin-bottom: 4px;
+                }
+
+                    .app-sidebar .nav-link:hover {
+                        color: #4154f1;
+                        background-color: #f6f9ff;
+                    }
+
+                    .app-sidebar .nav-link.active {
+                        color: #4154f1;
+                        background-color: #f6f9ff;
+                    }
+
+            /* Contenido */
+            .app-main {
+                margin-left: var(--sidebar-width);
+                padding: 30px;
+                min-height: 100vh;
+            }
+
+            .pagetitle {
+                margin-bottom: 20px;
+            }
+
+                .pagetitle h1 {
+                    font-size: 24px;
+                    font-weight: 600;
+                    margin-bottom: 4px;
+                }
+
+            .breadcrumb {
+                font-size: 14px;
+                margin-bottom: 0;
+            }
+
+            .breadcrumb-item.active {
+                color: #899bbd;
+            }
+
+            .card {
+                border: none;
+                border-radius: 5px;
+                box-shadow: 0 0 30px rgba(1, 41, 112, 0.1);
+            }
+
+            .card-header {
+                background-color: #fff;
+                border-bottom: 1px solid #ebeef4;
+            }
+
+            .card-title {
+                font-size: 18px;
+                font-weight: 500;
+                color: #012970;
+                font-family: "Poppins", sans-serif;
+            }
+
+            .table thead th {
+                color: #012970;
+                background-color: #f6f6fe;
+            }
+
+            footer {
+                font-size: 14px;
+                color: #012970;
+            }
+
+            /* Pantallas pequeñas: el menú pasa arriba */
+            @@media (max-width: 991px) {
+                .app-sidebar {
+                    position: static;
+                    width: 100%;
+                    bottom: auto;
+                }
+
+                .app-main {
+                    margin-left: 0;
+                    padding: 20px;
+                    min-height: auto;
+                }
+            }
+    </style>
+
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+
+    <aside class="app-sidebar">
+        <a class="brand" asp-controller="Home" asp-action="Index">
+            <img src="~/assets/img/Logo_Panaderia.png" alt="" />
+            <span>Panadería</span>
+        </a>
+
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link @(controller == "Home" ? "active" : "")" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-grid"></i> <span>Inicio</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @(controller == "Products" ? "active" : "")" asp-controller="Products" asp-action="Index">
+                    <i class="bi bi-basket"></i> <span>Inventario</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <main class="app-main">
+        @RenderBody()
+
+        <footer class="text-center mt-5">
+            &copy; Copyright <strong>Panadería</strong>. Todos los derechos reservados.
+        </footer>
+    </main>
+
+    <script src="~/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @await Component.InvokeAsync("Notyf")
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>
